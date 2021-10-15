@@ -91,6 +91,10 @@ func Render(cfg Options) error {
 			if !strings.HasSuffix(info.Name(), ".gotpl") {
 				return nil
 			}
+			// omit any templates with "_" at the end of their name, which are meant for specific contexts only
+			if strings.HasSuffix(info.Name(), "_.gotpl") {
+				return nil
+			}
 			b, err := ioutil.ReadFile(path)
 			if err != nil {
 				return err
@@ -458,9 +462,11 @@ var commonInitialisms = map[string]bool{
 	"ID":    true,
 	"IP":    true,
 	"JSON":  true,
+	"KVK":   true,
 	"LHS":   true,
 	"PGP":   true,
 	"QPS":   true,
+	"QR":    true,
 	"RAM":   true,
 	"RHS":   true,
 	"RPC":   true,
@@ -468,16 +474,17 @@ var commonInitialisms = map[string]bool{
 	"SMTP":  true,
 	"SQL":   true,
 	"SSH":   true,
+	"SVG":   true,
 	"TCP":   true,
 	"TLS":   true,
 	"TTL":   true,
 	"UDP":   true,
 	"UI":    true,
 	"UID":   true,
-	"UUID":  true,
 	"URI":   true,
 	"URL":   true,
 	"UTF8":  true,
+	"UUID":  true,
 	"VM":    true,
 	"XML":   true,
 	"XMPP":  true,
